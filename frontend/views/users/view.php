@@ -11,12 +11,15 @@ $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="user-view">    
+<div class="user-view">
 
-    <p class=float-right>
-        <?= Html::a('Profile', ['profile/index'], ['class' => 'btn btn-primary']) ?>
-    </p>
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php if (Yii::$app->user->can('manageProfile', ['user' => $model])): ?>
+        <p class=float-right>
+            <?= Html::a('Profile', ['profile/index'], ['class' => 'btn btn-primary']) ?>
+        </p>
+    <?php endif; ?>
+
+    <h1><?= Html::encode($this->title) ?></h1>    
 
     <div class="card">
         <div class="card-body">
