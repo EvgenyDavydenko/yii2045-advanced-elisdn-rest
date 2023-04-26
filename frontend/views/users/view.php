@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-view">    
 
     <p class=float-right>
-        <?= Html::a('Profile', ['profile/view', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Profile', ['profile/index'], ['class' => 'btn btn-primary']) ?>
     </p>
     <h1><?= Html::encode($this->title) ?></h1>
 

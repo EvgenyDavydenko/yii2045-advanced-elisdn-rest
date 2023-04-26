@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use Yii;
 use common\models\User;
 use yii\filters\AccessControl;
 use frontend\models\UserSearch;
@@ -41,10 +42,10 @@ class ProfileController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionIndex()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        return $this->render('index', [
+            'model' => $this->findModel(),
         ]);
     }
 
@@ -55,12 +56,12 @@ class ProfileController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -75,9 +76,9 @@ class ProfileController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
+        $this->findModel()->delete();
 
         return $this->redirect(['index']);
     }
@@ -89,9 +90,9 @@ class ProfileController extends Controller
      * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel()
     {
-        if (($model = User::findOne(['id' => $id])) !== null) {
+        if (($model = User::findOne(Yii::$app->user->id)) !== null) {
             return $model;
         }
 
