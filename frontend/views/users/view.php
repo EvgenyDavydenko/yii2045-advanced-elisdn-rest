@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use frontend\widgets\LastUserPosts;
 
 /** @var yii\web\View $this */
 /** @var common\models\User $model */
@@ -26,5 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Yii::$app->formatter->asNtext($model->description) ?>
         </div>
     </div>
+
+    <?= LastUserPosts::widget([
+            'user' => $model,
+    ]) ?>
 
 </div>
