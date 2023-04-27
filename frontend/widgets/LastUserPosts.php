@@ -10,7 +10,7 @@ use yii\base\Widget;
 class LastUserPosts extends Widget
 {
     public $user;
-    public $limit = 5;
+    public $limit = 2;
 
     public function init()
     {
@@ -23,7 +23,7 @@ class LastUserPosts extends Widget
     {
         return $this->render('last-user-posts', [
             'user' => $this->user,
-            'posts' => Post::find()->andWhere(['user_id' => $this->user->id])->limit($this->limit)->orderBy(['id' => SORT_DESC])->all(),
+            'posts' => Post::find()->where(['user_id' => $this->user->id])->limit($this->limit)->orderBy(['id' => SORT_DESC])->all(),
         ]);
     }
 }
