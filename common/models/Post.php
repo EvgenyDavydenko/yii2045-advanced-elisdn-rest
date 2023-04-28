@@ -32,8 +32,6 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'created_at', 'updated_at'], 'integer'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],

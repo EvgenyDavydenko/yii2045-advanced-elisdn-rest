@@ -27,6 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
+    <p class="float-right mt-3">
+        <?= Html::a('Create Post', ['user-posts/create', 'user_id' => $model->id], ['class' => 'btn btn-success']) ?>
+    </p>
+
     <?= LastUserPosts::widget([
             'user' => $model,
     ]) ?>
