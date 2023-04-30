@@ -9,12 +9,36 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 /**
  * PostsController implements the CRUD actions for Post model.
  */
 class UserPostsController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * Lists all Post models.
      *
@@ -87,6 +111,11 @@ class UserPostsController extends Controller
         $user = $this->findUserModel($user_id);
         $model = $this->findPostModel($user_id, $id);
 
+
+        if (!Yii::$app->user->can('managePost', ['post' => $model])) {
+            throw new ForbiddenHttpException('Forbidden.');
+        }
+
         if ($model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'user_id' => $user->id, 'id' => $model->id]);
         }
@@ -108,6 +137,10 @@ class UserPostsController extends Controller
     {
         $user = $this->findUserModel($user_id);
         $model = $this->findPostModel($user_id, $id);
+
+        if (!Yii::$app->user->can('managePost', ['post' => $model])) {
+            throw new ForbiddenHttpException('Forbidden.');
+        }
 
         $model->delete();
 

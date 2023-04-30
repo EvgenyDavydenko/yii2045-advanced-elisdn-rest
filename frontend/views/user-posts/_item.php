@@ -9,6 +9,8 @@ use yii\helpers\StringHelper;
 
 <div class="card mt-3">
   <div class="card-header">
+
+    <?php if (Yii::$app->user->can('managePost', ['post' => $model])): ?>
     <p class="float-right">
       <?= Html::a('Update', ['update', 'user_id' => $model->user_id, 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
       <?= Html::a('Delete', ['delete', 'user_id' => $model->user_id, 'id' => $model->id], [
@@ -19,6 +21,8 @@ use yii\helpers\StringHelper;
           ],
       ]) ?>
     </p>
+    <?php endif; ?>
+    
     <?= Html::a(Html::encode($model->title), ['user-posts/view', 'user_id' => $model->user_id, 'id' => $model->id]); ?>
   </div>
   <div class="card-body">

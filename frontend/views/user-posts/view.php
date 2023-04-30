@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="post-view">    
 
+    <?php if (Yii::$app->user->can('managePost', ['post' => $model])): ?>
     <p class="float-right">
         <?= Html::a('Update', ['update', 'user_id' => $model->user_id, 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'user_id' => $model->user_id, 'id' => $model->id], [
@@ -25,6 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <?php endif; ?>
+    
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= DetailView::widget([
